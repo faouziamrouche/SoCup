@@ -17,38 +17,23 @@ idx=0
 Client = db.reference('client_db')
 Trash = db.reference('trash_db')
 
-@app.route('/notif', methods=['GET'])
+# @app.route('/notif', methods=['GET'])
 def sendNotif():
     # Send to single device.
     from pyfcm import FCMNotification
 
-    push_service = FCMNotification(api_key="AIzaSyDSyjypPVBRjd70Vi96cIYdL5uIww4tf_U")
+    push_service = FCMNotification(api_key="AAAAG3qILFk:APA91bE-HPHUiOYk7CVyaH4Y0vzwxePISFUSYkuUAXfOIVgOtspuCFJ0Mw_l_1vOrugiQucPKj4vLLeinfCTpfm3KhMYo4CKuNc1JCdZHJX8WEUDvwoMPl_XKU0LbPjk8n8pxkceSnsW")
 
-    # OR initialize with proxies
-
-    # proxy_dict = {
-    #           "http"  : "http://127.0.0.1",
-    #           "https" : "http://127.0.0.1",
-    #         }
-    # push_service = FCMNotification(api_key="<api-key>", proxy_dict=proxy_dict)
-
-    # Your api-key can be gotten from:  https://console.firebase.google.com/project/<project-name>/settings/cloudmessaging
-
-    registration_id = "AAAAG3qILFk:APA91bE-HPHUiOYk7CVyaH4Y0vzwxePISFUSYkuUAXfOIVgOtspuCFJ0Mw_l_1vOrugiQucPKj4vLLeinfCTpfm3KhMYo4CKuNc1JCdZHJX8WEUDvwoMPl_XKU0LbPjk8n8pxkceSnsW"
-    message_title = "Credit added"
-    message_body = "Hi, here are the news"
+    registration_id = "dQFOpaQ57L8:APA91bHKGbAz0mV5KMNsbcbfHwIy8PoZgPL9ad19g_KepnDcSw4rr9mNyYWUw9Mkj4hcguP7ekI-dTjUK8nydzxSmwdcWhgJSwgUTZdMJMvdC4_nLhWg3o6BjE4YGpk1gj39ZZHKb6fu"
+    message_title = "Cup returned"
+    message_body = "Thanks for your contribution"
     result = push_service.notify_single_device(registration_id=registration_id, message_title=message_title, message_body=message_body)
 
-    # # Send to multiple devices by passing a list of ids.
-    # registration_ids = ["<device registration_id 1>", "<device registration_id 2>", ...]
-    # message_title = "Uber update"
-    # message_body = "Hope you're having fun this weekend, don't forget to check today's news"
-    # result = push_service.notify_multiple_devices(registration_ids=registration_ids, message_title=message_title, message_body=message_body)
-
-    print (result)
-
-@app.route('/client/<id_cl>/<id_cu>', methods=['GET'])
-def add_client(id_cl,id_cu):
+@app.route('/client', methods=['POST'])
+def add_client():
+    data = request.get_json()
+    id_cl = data["id_cl"]
+    id_cu = data["id_cu"]
     # end = Client.child('END').get()
     # end = end +1
     # req = flask.request.json
@@ -58,8 +43,11 @@ def add_client(id_cl,id_cu):
     # return flask.jsonify({'id': res.key}), 201
     return "Success "
 
-@app.route('/station/<id_tr>/<id_cu>', methods=['GET'])
-def add_cup(id_tr,id_cu):
+@app.route('/station', methods=['POST'])
+def add_cup():
+    data = request.get_json()
+    id_tr = data["id_tr"]
+    id_cu = data["id_cu"]
     # end = Client.child('END').get()
     # end = end +1
     # req = flask.request.json
@@ -67,6 +55,7 @@ def add_cup(id_tr,id_cu):
     db.reference('trash_db/'+str(id_tr)).push(id_cu)
     # res = Client. update(req)
     # return flask.jsonify({'id': res.key}), 201
+    sendNotif()
     return "Success "
 
 @app.route('/station/<id>/json', methods=['GET'])
