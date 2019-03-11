@@ -24,7 +24,7 @@ def sendNotif():
 
     push_service = FCMNotification(api_key="AAAAG3qILFk:APA91bE-HPHUiOYk7CVyaH4Y0vzwxePISFUSYkuUAXfOIVgOtspuCFJ0Mw_l_1vOrugiQucPKj4vLLeinfCTpfm3KhMYo4CKuNc1JCdZHJX8WEUDvwoMPl_XKU0LbPjk8n8pxkceSnsW")
 
-    registration_id = "dQFOpaQ57L8:APA91bHKGbAz0mV5KMNsbcbfHwIy8PoZgPL9ad19g_KepnDcSw4rr9mNyYWUw9Mkj4hcguP7ekI-dTjUK8nydzxSmwdcWhgJSwgUTZdMJMvdC4_nLhWg3o6BjE4YGpk1gj39ZZHKb6fu"
+    registration_id = "dag7_IRL9bU:APA91bEZr7tCtEsRo_6TCC6WM8b9-dHGVyHFGZ8W8A50weXaI_cEGmuYqHLHsVKXWilvd1uqbnJD08UwY99j5EC-KSvh_GWflCYXgP9stfWeVquhLrWgBlYuDD2z8DQ2HOk-iQiukGUO" #"dQFOpaQ57L8:APA91bHKGbAz0mV5KMNsbcbfHwIy8PoZgPL9ad19g_KepnDcSw4rr9mNyYWUw9Mkj4hcguP7ekI-dTjUK8nydzxSmwdcWhgJSwgUTZdMJMvdC4_nLhWg3o6BjE4YGpk1gj39ZZHKb6fu"
     message_title = "Cup returned"
     message_body = "Thanks for your contribution"
     result = push_service.notify_single_device(registration_id=registration_id, message_title=message_title, message_body=message_body)
