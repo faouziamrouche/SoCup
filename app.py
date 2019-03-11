@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 cred = credentials.Certificate("./serviceAccountKey.json")
 firebase_admin.initialize_app(cred,options={
-    'databaseURL': '<databaseURL'
+    'databaseURL': '<databaseURL>'
 })
 idx=0
 
