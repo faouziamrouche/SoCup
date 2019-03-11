@@ -11,13 +11,9 @@ firebase_admin.initialize_app(cred,options={
 })
 idx=0
 
-# firebase_admin.initialize_app(options={
-#     'databaseURL': 'https://socup-27717.firebaseio.com'
-# })
 Client = db.reference('client_db')
 Trash = db.reference('trash_db')
 
-# @app.route('/notif', methods=['GET'])
 def sendNotif():
     # Send to single device.
     from pyfcm import FCMNotification
@@ -39,8 +35,6 @@ def add_client():
     # req = flask.request.json
     # res = Client.update({end:req})
     db.reference('client_db/'+str(id_cl)).push(id_cu)
-    # res = Client. update(req)
-    # return flask.jsonify({'id': res.key}), 201
     return "Success "
 
 @app.route('/station', methods=['POST'])
@@ -53,8 +47,6 @@ def add_cup():
     # req = flask.request.json
     # res = Client.update({end:req})
     db.reference('trash_db/'+str(id_tr)).push(id_cu)
-    # res = Client. update(req)
-    # return flask.jsonify({'id': res.key}), 201
     sendNotif()
     return "Success "
 
